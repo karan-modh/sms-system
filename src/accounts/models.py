@@ -12,4 +12,4 @@ class UserProfile(models.Model):
     company = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.user.get_full_name(), self.company

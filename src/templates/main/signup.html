@@ -1,6 +1,8 @@
 {% extends "main/base.html" %}
-{% block body_block %}
-  <div class="container">
+{% load static %}
+{% block body %}
+    <br>
+    <hr>
     <div class="jumbotron">
       {% if registered %}
         <h1>Thank you for registering!</h1>
@@ -13,8 +15,7 @@
           {{ prof_form.as_p }}
           <input type="submit" name="" value="Register">
         </form>
-        
+
       {% endif %}
     </div>
-  </div>
 {% endblock %}

@@ -20,7 +20,7 @@ from accounts import views as accViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^signup/$', accViews.register, name='register'),
+    url(r'^signup/$', accViews.signup, name='signup'),
     url(r'^user_login/$', accViews.user_login, name='user_login'),
     url(r'^logout/$', accViews.user_logout, name='logout'),
     url(r'^$', accViews.index, name='index')

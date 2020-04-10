@@ -1,6 +1,8 @@
 {% extends 'main/base.html' %}
-{% block body_block %}
-  <div class="container">
+{% load static %}
+{% block body %}
+    <br>
+    <hr>
     <div class="jumbotron">
         <h1>Login here :</h1>
         <form method="post" action="{% url 'user_login' %}">
@@ -13,5 +15,4 @@
             <input type="submit" name="" value="Login">
         </form>
     </div>
-  </div>
 {% endblock %}

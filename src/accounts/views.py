@@ -15,12 +15,14 @@ def index(request):
 def special(request):
     return HttpResponse("You are Logged in !")
 
+
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-def register(request):
+
+def signup(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
@@ -55,6 +57,6 @@ def user_login(request):
         else:
             print("Someone tried to login and failed.")
             print("They used username : {} and password : {}.".format(username, password))
-            return HttpResponse("Invaalid Login Details given")
+            return HttpResponse("Invalid Login Details given")
     else:
-        return render(request,'main/login.html', {})
+        return render(request, 'main/login.html', {})

@@ -1,13 +1,14 @@
 {% extends "main/base.html" %}
-{% block body_block %}
-<div class="container">
-  <div class="jumbotron">
-    <h1>Welcome to the Djungle !</h1>
-    {% if user.is_authenticated %}
-        <h2>Hello {{ user.first_name }}</h2>
-    {% else %}
-        <h2>Register or Login if you'd like to</h2>
-    {% endif %}
-  </div>
-</div>
+{% load static %}
+{% block body %}
+    <br>
+    <hr>
+    <div class="jumbotron">
+      <h1>Welcome to SMS-System</h1>
+        {% if user.is_authenticated %}
+        <h3>Hello {{ user.first_name }}</h3>
+        {% else %}
+        <h3>You may need to Login/SignUp to use the app.</h3>
+        {% endif %}
+    </div>
 {% endblock %}
