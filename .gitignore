@@ -29,7 +29,6 @@ share/python-wheels/
 MANIFEST
 *.sqlite3
 migrations/
-staticfiles/
 media/
 
 # PyInstaller

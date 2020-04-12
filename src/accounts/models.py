@@ -10,6 +10,7 @@ from django.apps import apps
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company = models.CharField(max_length=100)
+    profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
 
     def __str__(self):
-        return self.user.get_full_name(), self.company
+        return self.user.get_full_name() + " | " + self.company
