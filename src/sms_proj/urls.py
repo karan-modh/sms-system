@@ -16,12 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from accounts import views as accViews
+from accounts.views import UserRegisterFormView, LoginView, index, user_logout
+from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^signup/$', accViews.signup, name='signup'),
-    url(r'^user_login/$', accViews.user_login, name='user_login'),
-    url(r'^logout/$', accViews.user_logout, name='logout'),
-    url(r'^$', accViews.index, name='index')
+    url(r'^signup/$', UserRegisterFormView.as_view(), name='signup'),
+    url(r'^login/$', LoginView.as_view(), name='user_login'),
+    url(r'^logout/$', user_logout, name='logout'),
+    url(r'^$', index, name='index')
 ]

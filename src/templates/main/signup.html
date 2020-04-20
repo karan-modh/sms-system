@@ -4,16 +4,87 @@
     <br>
     <hr>
     <div class="jumbotron">
-      {% if registered %}
-        <h1>Thank you for registering!</h1>
-      {% else %}
-        <h1>Register Here</h1>
-        <h3>Just fill out the form.</h3>
+        {% if registered %}
+            <h1>Thank you for registering!</h1>
+        {% else %}
+        <h1 style="text-align: center">Register Here</h1>
+        <hr>
+<!--        <h3>Just fill out the form.</h3>-->
         <form enctype="multipart/form-data" method="POST">
-          {% csrf_token %}
-          {{ user_form.as_p }}
-          {{ prof_form.as_p }}
-          <input type="submit" name="" value="Register">
+            {% csrf_token %}
+            <div style="color: red">
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-9">
+                    <div id="register_form">
+                        <div class="md-form">
+                            <label id="{{ form.username.id_for_label }}" for="{{ form.username.id_for_label }}">{{ form.username.label }} : </label>
+                            {{ form.username }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.first_name.id_for_label }}" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }} : </label>
+                            {{ form.first_name }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.last_name.id_for_label }}" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }} : </label>
+                            {{ form.last_name }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.email.id_for_label }}" for="{{ form.email.id_for_label }}">{{ form.email.label }} : </label>
+                            {{ form.email }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.password1.id_for_label }}" for="{{ form.password1.id_for_label }}">{{ form.password1.label }} : </label>
+                            {{ form.password1 }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.password2.id_for_label }}" for="{{ form.password2.id_for_label }}">{{ form.password2.label }} : </label>
+                            {{ form.password2 }}
+                        </div>
+                        <ul>
+                            <li style="font-size: small">Your password can&#39;t be too similar to your other personal information.</li>
+                            <li style="font-size: small">Your password must contain at least 8 characters.</li>
+                            <li style="font-size: small">Your password can&#39;t be a commonly used password.</li>
+                            <li style="font-size: small">Your password can&#39;t be entirely numeric.</li>
+                        </ul>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.company.id_for_label }}" for="{{ form.company.id_for_label }}">{{ form.company.label }} : </label>
+                            {{ form.company }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.phone.id_for_label }}" for="{{ form.phone.id_for_label }}">{{ form.phone.label }} : </label>
+                            {{ form.phone }}
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <label id="{{ form.position.id_for_label }}" for="{{ form.position.id_for_label }}">{{ form.position.label }} : </label>
+                            {{ form.position }}
+                        </div>
+                        <br>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit" id="register">
+                            Signup
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+
         </form>
 
       {% endif %}

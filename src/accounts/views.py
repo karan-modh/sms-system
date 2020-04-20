@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, UserForm
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.contrib.auth.views import LoginView as DefaultLoginView
+from .forms import UserRegisterForm
+from django.views.generic import CreateView
+from .models import UserProfile
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -11,9 +14,13 @@ def index(request):
     return render(request, 'main/index.html')
 
 
-@login_required
-def special(request):
-    return HttpResponse("You are Logged in !")
+class LoginView(DefaultLoginView):
+    template_name = 'main/login.html'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        url = super().get_redirect_url()
+        return "/"
 
 
 @login_required
@@ -22,41 +29,21 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-def signup(request):
-    registered = False
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        prof_form = UserRegisterForm(data=request.POST)
-        if user_form.is_valid() and prof_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            profile = prof_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            registered = True
-        else:
-            print(user_form.errors, prof_form.errors)
-    else:
-        user_form = UserForm()
-        prof_form = UserRegisterForm()
-    return render(request, 'main/signup.html', {'user_form': user_form, 'prof_form': prof_form, 'registered': registered})
+class UserRegisterFormView(CreateView):
+    model = UserProfile
+    form_class = UserRegisterForm
+    template_name = 'main/signup.html'
+    success_url = '/login'
 
+    def form_valid(self, form):
+        user = form.save()
+        UserRegisterFormView.create_profile(user, **form.cleaned_data)
+        return super(UserRegisterFormView, self).form_valid(form)
 
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                return HttpResponse("Your Account was inactive !")
-        else:
-            print("Someone tried to login and failed.")
-            print("They used username : {} and password : {}.".format(username, password))
-            return HttpResponse("Invalid Login Details given")
-    else:
-        return render(request, 'main/login.html', {})
+    @staticmethod
+    def create_profile(user=None, **kwargs):
+        userprofile = UserProfile.objects.create(user=user,
+                                                 phone=kwargs['phone'],
+                                                 company=kwargs['company'],
+                                                 position=kwargs['position'])
+        userprofile.save()
