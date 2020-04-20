@@ -10,10 +10,6 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'main/index.html')
-
-
 class LoginView(DefaultLoginView):
     template_name = 'main/login.html'
     redirect_authenticated_user = True

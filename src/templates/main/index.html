@@ -6,7 +6,7 @@
     <div class="jumbotron">
       <h1>Welcome to SMS-System</h1>
         {% if user.is_authenticated %}
-        <h3>Hello {{ user.first_name }}</h3>
+        <h3>You may head over to "My Accounts" page to send a message.</h3>
         {% else %}
         <h3>You may need to Login/SignUp to use the app.</h3>
         {% endif %}
