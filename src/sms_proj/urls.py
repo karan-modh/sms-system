@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.conf.urls.static import static
+from .settings import MEDIA_URL, MEDIA_ROOT
 from accounts.views import UserRegisterFormView, LoginView, user_logout
 from main.views import index
 
@@ -28,3 +30,5 @@ urlpatterns = [
     path('logout/', user_logout, name='logout'),
     url(r'^/*', include('main.urls')),
 ]
+
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
