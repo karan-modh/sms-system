@@ -78,7 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'sms_proj.wsgi.application'
 
 # Form Template
-CRISPY_TEMPLATE_PACK="bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
