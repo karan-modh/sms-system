@@ -29,6 +29,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='user_login'),
     path('logout/', user_logout, name='logout'),
     url(r'^/*', include('main.urls')),
+    path('api/', include('api.urls')),
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
