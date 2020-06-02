@@ -15,9 +15,11 @@ import dj_database_url
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), '/var/www/static', ]
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
@@ -28,7 +30,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '=fcmlu7+ycm4)1+b$zwhcqdlaxf!)k*29b29hy622+3hfsqn0i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['sms-app-cs321.herokuapp.com', 'localhost']
 
@@ -86,8 +88,10 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ciba',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'ciba',
     }
 }
 
@@ -129,12 +133,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR = [STATIC_DIR, ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/login/'
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
 
 django_heroku.settings(locals())
