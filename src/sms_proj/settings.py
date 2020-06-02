@@ -19,7 +19,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), '/var/www/static', ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
@@ -30,7 +30,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '=fcmlu7+ycm4)1+b$zwhcqdlaxf!)k*29b29hy622+3hfsqn0i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['sms-app-cs321.herokuapp.com', 'localhost']
 
