@@ -113,7 +113,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-sms_system_venv/
+sms_env/
 
 # Spyder project settings
 .spyderproject

@@ -13,24 +13,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from .settings import MEDIA_URL, MEDIA_ROOT
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
-from .settings import MEDIA_URL, MEDIA_ROOT
-from accounts.views import UserRegisterFormView, LoginView, user_logout
-from main.views import index
+from django.conf import settings
+from main.views import index, pricing, about, dash
 
+from account.views import (
+    registration_view,
+    logout_view,
+    login_view,
+    account_view,
+    must_authenticate_view,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('signup/', UserRegisterFormView.as_view(), name='signup'),
-    path('login/', LoginView.as_view(), name='user_login'),
-    path('logout/', user_logout, name='logout'),
-    url(r'^/*', include('main.urls')),
-    path('api/', include('api.urls')),
 
+    path('pricing', pricing, name='pricing'),
+    path('about', about, name='about'),
+    path('profile/details', dash, name='dash'),
+
+    path('account/', account_view, name="account"),
+    path('login/', login_view, name="login"),
+    path('logout/', logout_view, name="logout"),
+    path('must_authenticate/', must_authenticate_view, name="must_authenticate"),
+    path('register/', registration_view, name="register"),
+    path('api/account/', include('account.api.urls', 'account_api')),
+    path('', include('main.urls')),
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
