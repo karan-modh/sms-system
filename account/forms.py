@@ -10,7 +10,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'username', 'password1', 'password2',)
+        fields = ('email', 'username', 'password1', 'password2', 'first_name', 'last_name', 'company_name')
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
@@ -47,7 +47,7 @@ class AccountAuthenticationForm(forms.ModelForm):
 class AccountUpdateForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('email', 'username',)
+        fields = ('email', 'username', 'first_name', 'last_name', 'company_name')
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()

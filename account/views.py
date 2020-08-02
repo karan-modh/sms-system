@@ -15,7 +15,7 @@ def registration_view(request):
             raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             login(request, account)
-            return redirect('home')
+            return redirect('index')
         else:
             context['registration_form'] = form
 
@@ -68,6 +68,9 @@ def account_view(request):
             form.initial = {
                 "email": request.POST['email'],
                 "username": request.POST['username'],
+                "first_name": request.POST['first_name'],
+                "last_name": request.POST['last_name'],
+                "company_name": request.POST['company_name']
             }
             form.save()
             context['success_message'] = "Updated"
@@ -77,6 +80,9 @@ def account_view(request):
             initial={
                 "email": request.user.email,
                 "username": request.user.username,
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+                "company_name": request.user.company_name
             }
         )
 

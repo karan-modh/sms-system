@@ -1,6 +1,5 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView
@@ -39,9 +38,9 @@ def registration_view(request):
         if serializer.is_valid():
             account = serializer.save()
             data['response'] = 'successfully registered new user.'
-            data['email'] = account.email
-            data['username'] = account.username
-            data['pk'] = account.pk
+            # data['email'] = account.email
+            # data['username'] = account.username
+            # data['pk'] = account.pk
             token = Token.objects.get(user=account).key
             data['token'] = token
         else:
@@ -75,7 +74,7 @@ def validate_username(username):
 # Headers: Authorization: Token <token>
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
-def account_properties_view(request):
+def account_details_view(request):
     try:
         account = request.user
     except Account.DoesNotExist:
@@ -118,7 +117,7 @@ class ObtainAuthTokenView(APIView):
     def post(self, request):
         context = {}
 
-        email = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
         account = authenticate(email=email, password=password)
         if account:
@@ -127,8 +126,8 @@ class ObtainAuthTokenView(APIView):
             except Token.DoesNotExist:
                 token = Token.objects.create(user=account)
             context['response'] = 'Successfully authenticated.'
-            context['pk'] = account.pk
-            context['email'] = email.lower()
+            # context['pk'] = account.pk
+            # context['email'] = email.lower()
             context['token'] = token.key
         else:
             context['response'] = 'Error'
