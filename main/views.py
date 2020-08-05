@@ -1,12 +1,15 @@
 import json
 
 import pandas
+from rest_framework import status
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from .models import MessagesGenerated
-from .serializers import FileUploadSerializer
+from .serializers import FileUploadSerializer, MessageSerializer
 
 
 @login_required()
@@ -33,7 +36,27 @@ def FileUploadView(request):
         print(contacts)
         messageObject = MessagesGenerated.objects.create_message(data, contacts, request.user)
         messageObject.save()
-        return render(request, 'profiles/gen_sucess.html')
+        return render(request, 'profiles/gen_success.html')
+
+
+@permission_classes((IsAuthenticated, )) 
+def GenMessageView(request):
+    user = request.user
+    print(user)
+    try:
+        messageObj = MessagesGenerated.objects.get(author=user)
+    except MessagesGenerated.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # serializer = MessageSerializer(messageObj)
+        directory = []
+        contacts = messageObj.contacts.split(' ')
+        for num in contacts:
+            temp = {'message': messageObj.message, 'to': str(num)}
+            directory.append(temp)
+        messageObj.delete()
+        return Response({'directory': directory})
 
 
 def index(request):
