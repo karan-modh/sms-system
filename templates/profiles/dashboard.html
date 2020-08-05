@@ -32,7 +32,7 @@
 	  .h3{
 	    text-align: center;
 	  }
-	  .blog-posts{
+	  .templates{
 	    max-width: 500px;
 	    width:100%;
 	    margin: auto;
@@ -40,45 +40,48 @@
 	</style>
 
 
-	<form class="form-signin" method="post">{% csrf_token %}
-
-	  <h1 class="h3 mb-3 font-weight-normal">Account</h1>
-
-	  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value={{account_form.initial.email}}>
-
-	  <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required
-	  value="{{account_form.initial.username}}">
-
-	  {% for field in account_form %}
-	      <p>
-	        {% for error in field.errors %}
-	          <p style="color: red">{{ error }}</p>
-	        {% endfor %}
-	      </p>
-	  {% endfor %}
-	  {% if account_form.non_field_errors %}
-	    <div style="color: red">
-	      <p>{{account_form.non_field_errors}}</p>
-	    </div>
-
-	  {% endif %}
-
-	  {% if success_message %}
-	    <p style="color:green; text-align: center;">{{success_message}}</p>
-	  {% endif  %}
-
-	  <button class="btn btn-lg btn-primary btn-block" type="submit">Save changes</button>
-
-	</form>
+{#	<form class="form-signin" method="post">{% csrf_token %}#}
+{##}
+{#	  <h1 class="h3 mb-3 font-weight-normal">Account</h1>#}
+{##}
+{#	  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value={{account_form.initial.email}}>#}
+{##}
+{#	  <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required#}
+{#	  value="{{account_form.initial.username}}">#}
+{##}
+{#	  {% for field in account_form %}#}
+{#	      <p>#}
+{#	        {% for error in field.errors %}#}
+{#	          <p style="color: red">{{ error }}</p>#}
+{#	        {% endfor %}#}
+{#	      </p>#}
+{#	  {% endfor %}#}
+{#	  {% if account_form.non_field_errors %}#}
+{#	    <div style="color: red">#}
+{#	      <p>{{account_form.non_field_errors}}</p>#}
+{#	    </div>#}
+{##}
+{#	  {% endif %}#}
+{##}
+{#	  {% if success_message %}#}
+{#	    <p style="color:green; text-align: center;">{{success_message}}</p>#}
+{#	  {% endif  %}#}
+{##}
+{#	  <button class="btn btn-lg btn-primary btn-block" type="submit">Save changes</button>#}
+{##}
+{#	</form>#}
 
 {#	<div class="d-flex flex-column">#}
 {#	  <a class="m-auto" href="{% url 'password_change' %}">Change password</a>#}
 {#	</div>#}
 
-
+	<div style="text-align: center">
+		<h1 style="padding-top: 1rem"> Welcome {{ user.first_name }}, </h1>
+		<p>to update profile click <a href="{% url 'dash' %}">here</a>.</p>
+	</div>
 	<div class="container mt-4 p-4">
 	  <div class="row">
-	    <div class="blog-posts">
+	    <div class="templates">
 	      <h3 class="mb-3 font-weight-normal">Message Templates:</h3>
 	      {% if templates %}
 	      <ul>

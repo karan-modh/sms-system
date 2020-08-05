@@ -89,7 +89,7 @@ def account_view(request):
     context['account_form'] = form
 
     templates = Template.objects.filter(author=request.user)
-    context['blog_posts'] = templates
+    context['templates'] = templates
 
     return render(request, "profiles/dashboard.html", context)
 

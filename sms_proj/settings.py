@@ -30,7 +30,8 @@ SECRET_KEY = '=fcmlu7+ycm4)1+b$zwhcqdlaxf!)k*29b29hy622+3hfsqn0i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sms-app-cs321.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = []
+# ['sms-app-cs321.herokuapp.com', '127.0.0.1', 'localhost', '192.168.0.102']
 
 
 # Application definition
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'account',
     'main',
     'messageTemplate',
+    'django_cleanup.apps.CleanupConfig'
 ]
 
 AUTH_USER_MODEL = 'account.Account'
@@ -66,9 +68,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
 }
 
 ROOT_URLCONF = 'sms_proj.urls'

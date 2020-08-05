@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
-from main.views import index, pricing, about, dash
+from main.views import index, pricing, about, dash, FileUploadView, FormDisplayView
 
 from account.views import (
     registration_view,
@@ -36,7 +36,9 @@ urlpatterns = [
     path('pricing', pricing, name='pricing'),
     path('about', about, name='about'),
     path('profile/details', dash, name='dash'),
-
+    path('send-msg/', FileUploadView, name='send_msg'),
+    path('gen-msg/', FormDisplayView, name='gen_msg'),
+    # path('api/msg/', GenMessageView.as_view(), name='upload_msg'),
     path('account/', account_view, name="account"),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout"),

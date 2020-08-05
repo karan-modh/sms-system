@@ -42,7 +42,7 @@
 
             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink1">
               <a class="dropdown-item" href="{% url 'dash' %}">My account</a>
-	            <a class="dropdown-item" href="">Send Message</a>
+	            <a class="dropdown-item" href="{% url 'gen_msg' %}">Send Message</a>
               <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
             </div>
               {% else %}
