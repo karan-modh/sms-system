@@ -9,6 +9,7 @@ distlib==0.3.0
 distro==1.4.0
 dj-database-url==0.5.0
 Django==3.0.7
+django-cleanup==5.0.0
 django-crispy-forms==1.9.0
 django-heroku==0.3.1
 djangorestframework==3.11.0
@@ -38,3 +39,4 @@ sqlparse==0.3.1
 urllib3==1.25.8
 webencodings==0.5.1
 whitenoise==5.0.1
+xlrd==1.2.0
