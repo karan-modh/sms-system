@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 
 from .models import MessagesGenerated
 from .serializers import FileUploadSerializer, MessageSerializer
@@ -39,14 +40,19 @@ def FileUploadView(request):
         return render(request, 'profiles/gen_success.html')
 
 
+@api_view(('GET', ))
 @permission_classes((IsAuthenticated, )) 
 def GenMessageView(request):
-    user = request.user
+    auth_token = request.META['HTTP_AUTHORIZATION']
+    auth_token = auth_token.split(' ')[-1]
+    temp = Token.objects.get(key=auth_token)
+    user = temp.user
     print(user)
     try:
         messageObj = MessagesGenerated.objects.get(author=user)
     except MessagesGenerated.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        print("I'm here")
+        return Response({'Error': "Message for that object not found"}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         # serializer = MessageSerializer(messageObj)
